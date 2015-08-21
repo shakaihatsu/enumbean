@@ -1,0 +1,40 @@
+(${OriginalEnum}.);
+
+private static final Map<${OriginalEnum}, ${OriginalEnum}Extender> ORIGINAL_TO_EXTENDER;
+private static final Map<${OriginalEnum}Extender, ${OriginalEnum}> EXTENDER_TO_ORIGINAL;
+
+private final ${OriginalEnum} original;
+
+static {
+	ORIGINAL_TO_EXTENDER = new HashMap<>();
+	EXTENDER_TO_ORIGINAL = new HashMap<>();
+	
+	${OriginalEnum}Extender[] extenders = ${OriginalEnum}Extender.values();
+	for (${OriginalEnum}Extender extender : extenders) {
+		ORIGINAL_TO_EXTENDER.put(extender.original, extender);
+		EXTENDER_TO_ORIGINAL.put(extender, extender.original);
+	}
+	
+	assertFullMapping();
+}
+
+private ${OriginalEnum}Extender(${OriginalEnum} original) {
+	this.original = original;
+}
+
+public static ${OriginalEnum}Extender valueOf(${OriginalEnum} original) {
+	return ORIGINAL_TO_EXTENDER.get(original);
+}
+
+public ${OriginalEnum} toOriginal() {
+	return EXTENDER_TO_ORIGINAL.get(this);
+}
+
+private static void assertFullMapping() {
+	${OriginalEnum}[] originals = ${OriginalEnum}.values();
+	for (${OriginalEnum} original : originals) {
+		if (ORIGINAL_TO_EXTENDER.get(original) == null) {
+			throw new IllegalStateException("The enum " + original.getClass().getSimpleName() + "." + original + " has no corresponding extension in " + ${OriginalEnum}Extender.class.getSimpleName() + "!");
+		}
+	}
+}

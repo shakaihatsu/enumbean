@@ -1,0 +1,11 @@
+JaCoCo
+------
+clean org.jacoco:jacoco-maven-plugin:prepare-agent test -Dmaven.test.failure.ignore=true -PwithJacoco
+org.jacoco:jacoco-maven-plugin:prepare-agent-integration failsafe:integration-test -Dmaven.test.failure.ignore=true
+sonar:sonar
+
+help:describe -Dplugin=org.jacoco:jacoco-maven-plugin -Ddetail
+
+Cobertura
+---------
+clean install -PwithCobertura -Dcobertura.report.format=xml
